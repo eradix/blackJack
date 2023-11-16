@@ -49,12 +49,14 @@ def compare(user_score, computer_score):
 def play_game():
     """play black jack game"""
     
+    # game logo
     print(logo)
 
     user_cards = []
     computer_cards = []
     is_game_over = False
 
+    # deal 2 cards for user and computer
     for _ in range(2):
         user_cards.append(deal_card())
         computer_cards.append(deal_card())
@@ -71,12 +73,17 @@ def play_game():
         if user_score == 0 or computer_score == 0 or user_score > 21:
             is_game_over = True
         else:
-            user_desc = input("Type 'y' to get another card, type 'n' to pass: ").lower()
-
-            if user_desc == 'y':
-                user_cards.append(deal_card())
-            elif user_desc == 'n':
-                is_game_over = True
+            # validate that user must input correctly
+            while True:
+                user_desc = input("Type 'y' to get another card, type 'n' to pass: ").lower()
+                if user_desc not in ['y', 'n']:
+                    print('Invalid input. Please try again.')
+                elif user_desc == 'y':
+                    user_cards.append(deal_card())
+                    break
+                else:
+                    is_game_over = True
+                    break
 
     while computer_score != 0 and computer_score  < 17:
         computer_cards.append(deal_card())
